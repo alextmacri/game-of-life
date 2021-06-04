@@ -14,6 +14,6 @@
 
 > **Plans for next day:** finish diagram/plans in UML and Gantt format (finish UML and touch up Gantt), and make the original Game of Life in pyglet
 
-> **Problems/bugs noted:** X doesn't work for uppercase inputs, should fix
+> **Problems/bugs noted:** -
 
 ## TEMPLATE ENDS HERE. MEETINGS START HERE.

@@ -10,12 +10,10 @@
 
 > **Goals for today:** pull repo, set up the basic project structure with starter pyglet files, update readme.md, and create diagrams / plan
 
-> **Accomplished:** did X
+> **Accomplished:** pulled repo, set the the basic project structure with starter pyglet files, updated readme.md, and learned about the diagram/plan formats (UML and Gantt) and started to make them
 
-> **Plans for next day:** do Y
+> **Plans for next day:** finish diagram/plans in UML and Gantt format (finish UML and touch up Gantt), and make the original Game of Life in pyglet
 
 > **Problems/bugs noted:** X doesn't work for uppercase inputs, should fix
-
-> **Other notes:** delete this line if not needed
 
 ## TEMPLATE ENDS HERE. MEETINGS START HERE.

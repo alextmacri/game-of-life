@@ -6,7 +6,7 @@
 
 ## TEMPLATE (don't change, just copy and update)
 
-### Log for 2021-06-08
+### Log for 2021-06-09
 
 > **Goals for today:** Make UML revisions and continue making free play mode
 

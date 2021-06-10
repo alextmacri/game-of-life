@@ -1,4 +1,3 @@
-import pyglet
 from game_of_life.CellState import CellState
 from game_of_life.assets import cell_dead_image, cell_live_image
 

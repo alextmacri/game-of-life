@@ -10,9 +10,9 @@
 
 > **Goals for today:** Finish UML and Gantt and planning revisions, and make the mode and scene functionality
 
-> **Accomplished:** Finished UML and Gantt planning and revisions, and made the mode and scene functionality
+> **Accomplished:** Finished UML and Gantt planning and revisions, and made some of the mode and scene functionality
 
-> **Plans for next day:** Finish (or at least make progress on) implementation of Free play
+> **Plans for next day:** Finish (or at least make progress on) implementation of Free play and finish teh mode and scene functionality
 
 > **Problems/bugs noted:** -
 

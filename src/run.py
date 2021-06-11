@@ -1,7 +1,7 @@
 import pyglet
 
-from game_of_life import game
+from game_of_life.GameWindow import GameWindow
 
-main_window = game.GameWindow()
+main_window = GameWindow()
 
 pyglet.app.run()

@@ -6,5 +6,5 @@ class ModeController:
         self.__modes = modes
         self.active_mode = self.__modes[active]
 
-    def switch_mode(self, mode: ModeState):
+    def switch_mode(self, mode_state: ModeState):
         self.active_mode = self.__modes[self]

@@ -1,13 +1,13 @@
 import pyglet
-from game_of_life.ModeController import ModeController
-from game_of_life.SceneController import SceneController
+# from game_of_life.ModeController import ModeController
+# from game_of_life.SceneController import SceneController
 
 class SceneInterface:
-    def __init__(self, parent_mode_controller: ModeController,
-                 parent_scene_controller: SceneController) -> None:
+    def __init__(self) -> None:
         self.main_batch = None(pyglet.graphics.Batch)
-        self.parent_mode_controller = None(ModeController)
-        self.parent_scene_controller = None(SceneController)
+
+        self.parent_mode_controller = None
+        self.parent_scene_controller = None
     
     def mouse_press(self, x: int, y: int, button: int):
         """Accounts for the event of a mouse press"""
@@ -19,8 +19,4 @@ class SceneInterface:
 
     def draw(self):
         """Drawing the Scene"""
-        pass
-
-    def update(dt: float):
-        """Updating the scene after the previously specified interval"""
         pass

@@ -1,14 +1,14 @@
 import pyglet
-from game_of_life.ModeController import ModeController
-from game_of_life.SceneController import SceneController
+# from game_of_life.ModeController import ModeController
+# from game_of_life.SceneController import SceneController
 from game_of_life.SceneInterface import SceneInterface
 
 class Target(SceneInterface):
-    def __init__(self, parent_mode_controller: ModeController,
-                 parent_scene_controller: SceneController) -> None:
-        self.main_batch = None(pyglet.graphics.Batch)
-        self.parent_mode_controller = None(ModeController)
-        self.parent_scene_controller = None(SceneController)
+    def __init__(self) -> None:
+        self.main_batch = pyglet.graphics.Batch()
+        
+        self.parent_mode_controller = None
+        self.parent_scene_controller = None
         self.thing = 'target'
     
     def mouse_press(self, x: int, y: int, button: int):

@@ -1,9 +1,7 @@
 from game_of_life.SceneInterface import SceneInterface
-from game_of_life.ModeController import ModeController
 
 class SceneController:
-    def __init__(self, parent_mode_controller: ModeController, scenes: dict[str, SceneInterface], active: str):
-        self.__parent_mode_controller = parent_mode_controller
+    def __init__(self, scenes: dict[str, SceneInterface], active: str):
         self.scenes = scenes
         self.active_scene = scenes[active]
     

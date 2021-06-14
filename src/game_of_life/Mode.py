@@ -1,8 +1,5 @@
-from game_of_life.ModeController import ModeController
 from game_of_life.SceneController import SceneController
 
 class Mode:
-    def __init__(self, parent_mode_controller: ModeController,
-                 scene_controller: SceneController):
-        self.parent_mode_controller = parent_mode_controller
+    def __init__(self, scene_controller: SceneController):
         self.scene_controller = scene_controller

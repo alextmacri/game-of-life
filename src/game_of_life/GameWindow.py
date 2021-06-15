@@ -2,7 +2,6 @@ import pyglet
 from game_of_life.Cell import Cell
 from game_of_life.ModeController import ModeController
 from game_of_life.ModeState import ModeState
-from game_of_life.Mode import Mode
 from game_of_life.SceneController import SceneController
 from game_of_life.scenes.Menu import Menu
 from game_of_life.scenes.Target import Target
@@ -14,33 +13,27 @@ class GameWindow(pyglet.window.Window):
 
         self.__mode_controller = ModeController(
             {
-                ModeState.MENU: Mode(
-                    SceneController(
-                        {'menu': Menu()},
-                        'menu'
-                    )
+                ModeState.MENU: SceneController(
+                    {'menu': Menu()},
+                    'menu'
                 ),
-                ModeState.FREE: Mode(
-                    SceneController(
-                        {'free': Free()},
-                        'free'
-                    )
+                ModeState.FREE: SceneController(
+                    {'free': Free()},
+                    'free'
                 ),
-                ModeState.TARGET: Mode(
-                    SceneController(
-                        {'target': Target()},
-                        'target'
-                    )
+                ModeState.TARGET: SceneController(
+                    {'target': Target()},
+                    'target'
                 )
             },
             ModeState.MENU
         )
 
         for mode_key in self.__mode_controller.modes:
-            mode = self.__mode_controller.modes[mode_key]
-            for scene_key in mode.scene_controller.scenes:
-                mode.scene_controller.scenes[scene_key].parent_mode_controller = self.__mode_controller
-                mode.scene_controller.scenes[scene_key].parent_scene_controller = mode.scene_controller
+            scene_controller = self.__mode_controller.modes[mode_key]
+            for scene_key in scene_controller.scenes:
+                scene_controller.scenes[scene_key].parent_mode_controller = self.__mode_controller
+                scene_controller.scenes[scene_key].parent_scene_controller = scene_controller
 
         # self.batch = pyglet.graphics.Batch()
         # self.group = pyglet.graphics.OrderedGroup(1)
@@ -57,7 +50,7 @@ class GameWindow(pyglet.window.Window):
 
     def on_mouse_press(self, x: int, y: int, button: int, _: int):
         # self.cells[y//20][x//20].switch_state(1)
-        self.__mode_controller.active_mode.scene_controller.active_scene.mouse_press(x, y, button)
+        self.__mode_controller.active_mode.active_scene.mouse_press(x, y, button)
 
     def on_mouse_release(self, x: int, y: int, button: int, modifiers: int):
         print(x, y)
@@ -67,4 +60,4 @@ class GameWindow(pyglet.window.Window):
         # self.batch.draw()
 
     def update(self, dt: float):
-        print(self.__mode_controller.active_mode.scene_controller.active_scene.thing)
+        print(self.__mode_controller.active_mode.active_scene.thing)

@@ -1,8 +1,8 @@
 from game_of_life.ModeState import ModeState
-from game_of_life.Mode import Mode
+from game_of_life.SceneController import SceneController
 
 class ModeController:
-    def __init__(self, modes: dict[ModeState, Mode], active: ModeState):
+    def __init__(self, modes: dict[ModeState, SceneController], active: ModeState):
         self.modes = modes
         self.active_mode = self.modes[active]
 

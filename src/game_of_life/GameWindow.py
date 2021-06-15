@@ -11,29 +11,7 @@ class GameWindow(pyglet.window.Window):
     def __init__(self, *args, **kwargs):
         super(GameWindow, self).__init__(860, 640, *args, **kwargs)
 
-        self.__mode_controller = ModeController(
-            {
-                ModeState.MENU: SceneController(
-                    {'menu': Menu()},
-                    'menu'
-                ),
-                ModeState.FREE: SceneController(
-                    {'free': Free()},
-                    'free'
-                ),
-                ModeState.TARGET: SceneController(
-                    {'target': Target()},
-                    'target'
-                )
-            },
-            ModeState.MENU
-        )
-
-        for mode_key in self.__mode_controller.modes:
-            scene_controller = self.__mode_controller.modes[mode_key]
-            for scene_key in scene_controller.scenes:
-                scene_controller.scenes[scene_key].parent_mode_controller = self.__mode_controller
-                scene_controller.scenes[scene_key].parent_scene_controller = scene_controller
+        self.__mode_controller = ModeController()
 
         # self.batch = pyglet.graphics.Batch()
         # self.group = pyglet.graphics.OrderedGroup(1)

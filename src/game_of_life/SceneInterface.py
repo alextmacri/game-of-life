@@ -3,11 +3,13 @@ import pyglet
 # from game_of_life.SceneController import SceneController
 
 class SceneInterface:
-    def __init__(self) -> None:
-        self.main_batch = None(pyglet.graphics.Batch)
+    """"""
 
-        self.parent_mode_controller = None
+    def __init__(self, parent_scene_controller) -> None:
+        self.active = None(bool)
         self.parent_scene_controller = None
+
+        self.main_batch = None(pyglet.graphics.Batch)
     
     def mouse_press(self, x: int, y: int, button: int):
         """Accounts for the event of a mouse press"""

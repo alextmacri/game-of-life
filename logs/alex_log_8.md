@@ -6,7 +6,7 @@
 
 ## TEMPLATE (don't change, just copy and update)
 
-### Log for 2021-06-13
+### Log for 2021-06-14
 
 > **Goals for today:** Finish scene functionality and free play
 

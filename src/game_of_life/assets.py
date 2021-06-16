@@ -6,6 +6,10 @@ live_rgba = (225, 225, 225, 255)
 cell_dead_image = pyglet.image.SolidColorImagePattern(dead_rgba).create_image(19, 19)
 cell_live_image = pyglet.image.SolidColorImagePattern(live_rgba).create_image(19, 19)
 
+# Loading button images
+button_pressed_image = pyglet.image.load('src/assets/button_pressed.png')
+button_unpressed_image = pyglet.image.load('src/assets/button_unpressed.png')
+
 # Loading custom font
 pyglet.font.add_file('src/assets/BACK_TO_1982.ttf')
 back_to_1982 = pyglet.font.load('Back to 1982')

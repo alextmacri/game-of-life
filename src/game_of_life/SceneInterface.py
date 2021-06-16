@@ -1,24 +1,28 @@
 import pyglet
-# from game_of_life.ModeController import ModeController
-# from game_of_life.SceneController import SceneController
+from typing import Callable
 
 class SceneInterface:
     """"""
 
-    def __init__(self, parent_scene_controller) -> None:
-        self.active = None(bool)
-        self.parent_scene_controller = None
+    def __init__(self, switch_scene_cb: Callable[[bool], None], switch_mode_cb: Callable[[bool], None]) -> None:
+        self.__switch_scene_cb
+        self.__switch_mode_cb
+        self.__is_active
 
-        self.main_batch = None(pyglet.graphics.Batch)
+        self.__main_batch
+
+    def set_is_active(self, is_active: bool) -> None:
+        """"""
+        pass
     
-    def mouse_press(self, x: int, y: int, button: int):
+    def mouse_press(self, x: int, y: int, button: int) -> None:
         """Accounts for the event of a mouse press"""
         pass
 
-    def mouse_release(self, x: int, y: int, button: int):
+    def mouse_release(self, x: int, y: int, button: int) -> None:
         """Accounts for the event of a mouse release"""
         pass
 
-    def draw(self):
+    def draw(self) -> None:
         """Drawing the Scene"""
         pass

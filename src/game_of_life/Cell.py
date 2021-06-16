@@ -11,7 +11,7 @@ class Cell:
     """
 
     def __init__(self, y_cor: int, x_cor: int, batch: pyglet.graphics.Batch,
-                 group: pyglet.graphics.OrderedGroup):
+                 group: pyglet.graphics.OrderedGroup) -> None:
         self.state = CellState.DEAD
 
         self.__y_cor = y_cor

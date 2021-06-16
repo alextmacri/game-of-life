@@ -30,8 +30,8 @@ class GameWindow(pyglet.window.Window):
         self.__active_mode = self.modes[ModeState.MENU]
 
         __background_color = (80, 80, 80, 255)
-        self.__background_image_data = pyglet.image.SolidColorImagePattern(__background_color).create_image(win_width, win_height)
-        self.__background = pyglet.sprite.Sprite(self.__background_image_data, x=0, y=0)
+        __background_image_data = pyglet.image.SolidColorImagePattern(__background_color).create_image(win_width, win_height)
+        self.__background = pyglet.sprite.Sprite(__background_image_data, x=0, y=0)
 
         pyglet.clock.schedule_interval(self.update, .5)
 

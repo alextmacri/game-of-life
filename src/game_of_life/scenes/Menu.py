@@ -10,11 +10,14 @@ class Menu(SceneInterface):
         self.__switch_mode_cb = switch_mode_cb
         self.__is_active = False
 
+        self.thing = 'menu'
+
         self.__main_batch = pyglet.graphics.Batch()
         self.__cell_group = pyglet.graphics.OrderedGroup(1)
         self.__backdrop_group = pyglet.graphics.OrderedGroup(2)
         self.__ui_group = pyglet.graphics.OrderedGroup(3)
-        self.thing = 'menu'
+        
+        self.__free_button = Button()
 
     def set_is_active(self, is_active: bool) -> None:
         """"""

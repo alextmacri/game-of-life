@@ -23,7 +23,7 @@ class Free(SceneInterface):
         self.__universe = []
         for y_cor in range(0, 640, 20):
             self.__universe.append([])
-            for x_cor in range(0, 620, 20):
+            for x_cor in range(0, 640, 20):
                 self.__universe[-1].append(Cell(y_cor, x_cor, self.__main_batch, self.__cell_group))
 
     def set_is_active(self, is_active: bool) -> None:

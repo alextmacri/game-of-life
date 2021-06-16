@@ -25,16 +25,25 @@ class Cell:
             CellState.LIVE: cell_live_image
         }
         
-        self.__sprite = pyglet.sprite.Sprite(self.__images[self.state], x=self.__x_cor, y=self.__y_cor, batch=self.__batch, group=self.__group)
+        self.__sprite = self.__define_sprite()
     
     def switch_state(self, state: CellState):
         """Switches state (and according sprite) of the cell"""
         self.state = state
         self.update_sprite()
 
+    def __define_sprite(self) -> pyglet.sprite.Sprite:
+        return pyglet.sprite.Sprite(
+            self.__images[self.state],
+            x=self.__x_cor,
+            y=self.__y_cor,
+            batch=self.__batch,
+            group=self.__group
+        )
+
     def update_sprite(self):
         self.__sprite.delete()
-        self.__sprite = pyglet.sprite.Sprite(self.__images[self.state], x=self.__x_cor, y=self.__y_cor, batch=self.__batch, group=self.__group)
+        self.__sprite = self.__define_sprite()
 
     def __repr__(self) -> str:
         return 'DEAD' if self.state == CellState.DEAD else 'LIVE'

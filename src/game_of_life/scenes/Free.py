@@ -18,6 +18,8 @@ class Free(SceneInterface):
         self.__backdrop_group = pyglet.graphics.OrderedGroup(2)
         self.__ui_group = pyglet.graphics.OrderedGroup(3)
 
+        self.__click_action = CellState.LIVE
+
         self.__universe = []
         for x_cor in range(0, 640, 20):
             self.__universe.append([])
@@ -28,19 +30,19 @@ class Free(SceneInterface):
         """"""
         pass
     
-    def mouse_press(self, x: int, y: int, button: int) -> None:
+    def mouse_press(self, x: int, y: int) -> None:
         """Accounts for the event of a mouse press"""
-        self.__universe[y//20][x//20].switch_state(CellState.LIVE)
-
-    def mouse_release(self, x: int, y: int, button: int) -> None:
-        """Accounts for the event of a mouse release"""
         pass
+
+    def mouse_drag(self, x: int, y: int):
+        if x <= 640:
+            self.__universe[y//20][x//20].switch_state(self.__click_action)
 
     def draw(self) -> None:
         """Drawing the Scene"""
         self.__main_batch.draw()
 
-    def update(self, dt: float) -> None:
+    def update_cells(self, dt: float) -> None:
         """Updating the scene after the previously specified interval"""
         if self.__is_active:
             pass

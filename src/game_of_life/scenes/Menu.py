@@ -20,14 +20,13 @@ class Menu(SceneInterface):
         """"""
         self.__is_active = is_active
     
-    def mouse_press(self, x: int, y: int, button: int) -> None:
+    def mouse_press(self, x: int, y: int) -> None:
         """Accounts for the event of a mouse press"""
         print(self.__is_active)
         print('switched')
         self.__switch_mode_cb(ModeState.FREE)
 
-    def mouse_release(self, x: int, y: int, button: int) -> None:
-        """Accounts for the event of a mouse release"""
+    def mouse_drag(self, x: int, y: int):
         pass
 
     def draw(self) -> None:

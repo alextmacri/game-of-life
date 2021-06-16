@@ -21,10 +21,10 @@ class Free(SceneInterface):
         self.__click_action = CellState.LIVE
 
         self.__universe = []
-        for x_cor in range(0, 640, 20):
+        for y_cor in range(0, 640, 20):
             self.__universe.append([])
-            for y_cor in range(0, 640, 20):
-                self.__universe[-1].append(Cell(x_cor, y_cor, self.__main_batch, self.__cell_group))
+            for x_cor in range(0, 620, 20):
+                self.__universe[-1].append(Cell(y_cor, x_cor, self.__main_batch, self.__cell_group))
 
     def set_is_active(self, is_active: bool) -> None:
         """"""
@@ -34,6 +34,7 @@ class Free(SceneInterface):
         """Accounts for the event of a mouse press"""
         if x <= 640:
             self.__universe[y//20][x//20].switch_state(self.__click_action)
+            print(self.__universe)
 
     def mouse_drag(self, x: int, y: int):
         if 0 <= x <= 640 and 0 <= y <= 640:

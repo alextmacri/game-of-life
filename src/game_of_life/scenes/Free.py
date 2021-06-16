@@ -32,10 +32,11 @@ class Free(SceneInterface):
     
     def mouse_press(self, x: int, y: int) -> None:
         """Accounts for the event of a mouse press"""
-        pass
+        if x <= 640:
+            self.__universe[y//20][x//20].switch_state(self.__click_action)
 
     def mouse_drag(self, x: int, y: int):
-        if x <= 640:
+        if 0 <= x <= 640 and 0 <= y <= 640:
             self.__universe[y//20][x//20].switch_state(self.__click_action)
 
     def draw(self) -> None:

@@ -2,9 +2,10 @@ import pyglet
 from game_of_life.ModeState import ModeState
 from game_of_life.SceneInterface import SceneInterface
 from typing import Callable
+from game_of_life.ModeState import ModeState
 
 class Menu(SceneInterface):
-    def __init__(self, switch_scene_cb: Callable[[bool], None], switch_mode_cb: Callable[[bool], None]) -> None:
+    def __init__(self, switch_scene_cb: Callable[[str], None], switch_mode_cb: Callable[[ModeState], None]) -> None:
         self.__switch_scene_cb = switch_scene_cb
         self.__switch_mode_cb = switch_mode_cb
         self.__is_active = False

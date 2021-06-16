@@ -1,10 +1,11 @@
 import pyglet
 from typing import Callable
+from game_of_life.ModeState import ModeState
 
 class SceneInterface:
     """"""
 
-    def __init__(self, switch_scene_cb: Callable[[bool], None], switch_mode_cb: Callable[[bool], None]) -> None:
+    def __init__(self, switch_scene_cb: Callable[[str], None], switch_mode_cb: Callable[[ModeState], None]) -> None:
         self.__switch_scene_cb
         self.__switch_mode_cb
         self.__is_active

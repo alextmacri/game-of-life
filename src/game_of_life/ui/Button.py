@@ -56,7 +56,7 @@ class Button:
         y_in_bounds = self.__y_cor <= y <= self.__y_cor_end
         return x_in_bounds and y_in_bounds
 
-    def __define_sprite(self) -> None:
+    def __define_sprite(self) -> pyglet.sprite.Sprite:
         return pyglet.sprite.Sprite(
             self.__images[self.__is_pressed],
             x=self.__x_cor,

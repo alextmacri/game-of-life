@@ -41,6 +41,9 @@ class GameWindow(pyglet.window.Window):
     def on_mouse_press(self, x: int, y: int, *_):
         self.__active_mode.active_scene.mouse_press(x, y)
 
+    def on_mouse_release(self, x: int, y: int, *_):
+        self.__active_mode.active_scene.mouse_release(x, y)
+
     def on_mouse_drag(self, x: int, y: int, *_):
         self.__active_mode.active_scene.mouse_drag(x, y)
 

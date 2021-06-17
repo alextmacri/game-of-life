@@ -47,3 +47,10 @@ class Cell:
 
     def __repr__(self) -> str:
         return 'DEAD' if self.state == CellState.DEAD else 'LIVE'
+    
+    def __eq__(self, o: object) -> bool:
+        if isinstance(o, type(self)):
+            return self.state == o.state
+        elif isinstance(o, type(CellState.LIVE)):
+            return self.state == o
+        return False

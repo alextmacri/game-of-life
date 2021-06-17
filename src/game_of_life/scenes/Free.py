@@ -65,6 +65,7 @@ class Free(SceneInterface):
         )
 
         self.__universe = self.__generate_universe()
+        self.__prev_universe_states = self.__generate_universe_states()
         self.__live_cells = set()
 
         pyglet.clock.schedule_interval(self.__update_cells, .4)
@@ -159,6 +160,13 @@ class Free(SceneInterface):
                 if counter == 3 and in_bounds(coord):
                     self.__universe[coord[0]][coord[1]].switch_state(CellState.LIVE)
                     self.__live_cells.add(coord)
+        
+            if self.__prev_universe_states == self.__universe:
+                self.__stop_button.set_is_pressed(True)
+                self.__is_active = False
+                self.__play_button.set_is_pressed(False)
+            else:
+                self.__prev_universe_states = self.__generate_universe_states()
 
     def __click_cell(self, x: int, y: int) -> None:
         col = y//20
@@ -178,3 +186,6 @@ class Free(SceneInterface):
             for x_cor in range(0, 640, 20):
                 universe[-1].append(Cell(y_cor, x_cor, self.__main_batch, self.__cell_group))
         return universe
+
+    def __generate_universe_states(self) -> list[tuple[CellState]]:
+        return [[cell.state for cell in row] for row in self.__universe]

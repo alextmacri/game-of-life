@@ -33,8 +33,6 @@ class GameWindow(pyglet.window.Window):
         __background_image_data = pyglet.image.SolidColorImagePattern(__background_color).create_image(win_width, win_height)
         self.__background = pyglet.sprite.Sprite(__background_image_data, x=0, y=0)
 
-        pyglet.clock.schedule_interval(self.update, .5)
-
     def __switch_mode(self, mode_state: ModeState):
         self.__active_mode = self.modes[mode_state]
 
@@ -50,6 +48,3 @@ class GameWindow(pyglet.window.Window):
     def on_draw(self):
         self.__background.draw()
         self.__active_mode.active_scene.draw()
-
-    def update(self, dt: float):
-        print(self.__active_mode.active_scene.thing)

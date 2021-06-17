@@ -13,7 +13,6 @@ class Target(SceneInterface):
         self.__cell_group = pyglet.graphics.OrderedGroup(1)
         self.__backdrop_group = pyglet.graphics.OrderedGroup(2)
         self.__ui_group = pyglet.graphics.OrderedGroup(3)
-        self.thing = 'target'
 
     def set_is_active(self, is_active: bool) -> None:
         """"""

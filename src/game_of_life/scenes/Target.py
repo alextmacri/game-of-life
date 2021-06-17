@@ -23,6 +23,10 @@ class Target(SceneInterface):
         """Accounts for the event of a mouse press"""
         pass
 
+    def mouse_release(self, x: int, y: int) -> None:
+        """"""
+        pass
+
     def mouse_drag(self, x: int, y: int):
         pass
 

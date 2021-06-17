@@ -36,6 +36,10 @@ class Free(SceneInterface):
             self.__universe[y//20][x//20].switch_state(self.__click_action)
             print(self.__universe)
 
+    def mouse_release(self, x: int, y: int) -> None:
+        """"""
+        pass
+
     def mouse_drag(self, x: int, y: int):
         if 0 <= x <= 640 and 0 <= y <= 640:
             self.__universe[y//20][x//20].switch_state(self.__click_action)

@@ -88,7 +88,7 @@ class Free(SceneInterface):
             self.__click_action = CellState.DEAD
             self.__live_button.set_is_pressed(False)
 
-        elif x <= 640:
+        elif x <= 639:
             self.__click_cell(x, y)
 
     def mouse_release(self, x: int, y: int) -> None:
@@ -96,7 +96,7 @@ class Free(SceneInterface):
         pass
 
     def mouse_drag(self, x: int, y: int) -> None:
-        if 0 <= x <= 640 and 0 <= y <= 640:
+        if 0 <= x <= 639 and 0 <= y <= 639:
             self.__click_cell(x, y)
 
     def draw(self) -> None:

@@ -10,7 +10,6 @@ class Free(SceneInterface):
     def __init__(self, switch_scene_cb: Callable[[str], None], switch_mode_cb: Callable[[ModeState], None]) -> None:
         self.__switch_scene_cb = switch_scene_cb
         self.__switch_mode_cb = switch_mode_cb
-        self.__is_active = False
 
         self.__main_batch = pyglet.graphics.Batch()
         self.__cell_group = pyglet.graphics.OrderedGroup(1)
@@ -18,9 +17,28 @@ class Free(SceneInterface):
         self.__button_group = pyglet.graphics.OrderedGroup(3)
         self.__text_group = pyglet.graphics.OrderedGroup(4)
 
-        self.__live_button = Button(
+        self.__play_button = Button(
             650,
             500,
+            'Play',
+            self.__main_batch,
+            self.__button_group,
+            self.__text_group
+        )
+        self.__stop_button = Button(
+            650,
+            410,
+            'Stop',
+            self.__main_batch,
+            self.__button_group,
+            self.__text_group
+        )
+        self.__stop_button.set_is_pressed(True)
+        self.__is_active = False
+
+        self.__live_button = Button(
+            650,
+            270,
             'Live',
             self.__main_batch,
             self.__button_group,
@@ -28,15 +46,14 @@ class Free(SceneInterface):
         )
         self.__dead_button = Button(
             650,
-            410,
+            180,
             'Dead',
             self.__main_batch,
             self.__button_group,
             self.__text_group
         )
-
-        self.__click_action = CellState.LIVE
         self.__live_button.set_is_pressed(True)
+        self.__click_action = CellState.LIVE
 
         self.__universe = []
         for y_cor in range(0, 640, 20):
@@ -45,7 +62,7 @@ class Free(SceneInterface):
                 self.__universe[-1].append(Cell(y_cor, x_cor, self.__main_batch, self.__cell_group))
         self.__live_cells = set()
 
-        pyglet.clock.schedule_interval(self.__update_cells, .5)
+        pyglet.clock.schedule_interval(self.__update_cells, .4)
 
     def set_is_active(self, is_active: bool) -> None:
         """"""
@@ -53,11 +70,19 @@ class Free(SceneInterface):
     
     def mouse_press(self, x: int, y: int) -> None:
         """Accounts for the event of a mouse press"""
-        if self.__live_button.press_in_bounds(x, y):
+        if self.__play_button.press_in_bounds(x, y):
+            self.__play_button.set_is_pressed(True)
+            self.__is_active = True
+            self.__stop_button.set_is_pressed(False)
+        elif self.__stop_button.press_in_bounds(x, y):
+            self.__stop_button.set_is_pressed(True)
+            self.__is_active = False
+            self.__play_button.set_is_pressed(False)
+        
+        elif self.__live_button.press_in_bounds(x, y):
             self.__live_button.set_is_pressed(True)
             self.__click_action = CellState.LIVE
             self.__dead_button.set_is_pressed(False)
-
         elif self.__dead_button.press_in_bounds(x, y):
             self.__dead_button.set_is_pressed(True)
             self.__click_action = CellState.DEAD
@@ -80,16 +105,54 @@ class Free(SceneInterface):
 
     def __update_cells(self, dt: float) -> None:
         """Updating the scene after the previously specified interval"""
+        def in_bounds(coordinates: tuple[int]):
+            x = 0 <= coordinates[0] < 32
+            y = 0 <= coordinates[1] < 32
+            return x and y
+
         if self.__is_active:
-            pass
+            make_dead = []
+            live_surrounding_dead = {}
+
+            offsets = [(1, -1), (1, 0), (1, 1), (0, -1), (0, 1), (-1, -1), (-1, 0), (-1, 1)]
+
+            for cell in self.__live_cells:
+                dead_surrounding_live = 0
+
+                for offset in offsets:
+                    coord = (cell[0] + offset[0], cell[1] + offset[1])
+
+                    if in_bounds(coord):
+                        if self.__universe[coord[0]][coord[1]].state == CellState.DEAD:
+                            dead_surrounding_live += 1
+
+                            if coord in live_surrounding_dead:
+                                live_surrounding_dead[coord] += 1
+                            else:
+                                live_surrounding_dead[coord] = 1
+                    else:
+                        dead_surrounding_live += 1
+
+                if 8 - dead_surrounding_live not in [2, 3]:
+                    make_dead.append(cell)
+
+            for coord in make_dead:
+                if coord in self.__live_cells:
+                    self.__live_cells.remove(coord)
+                    self.__universe[coord[0]][coord[1]].switch_state(CellState.DEAD)
+
+            for coord, counter in live_surrounding_dead.items():
+                if counter == 3 and in_bounds(coord):
+                    self.__universe[coord[0]][coord[1]].switch_state(CellState.LIVE)
+                    self.__live_cells.add(coord)
 
     def __click_cell(self, x: int, y: int) -> None:
-        col = y//20
-        row = x//20
-        if self.__click_action == CellState.LIVE:
-            self.__live_cells.add((col, row))
-        else:
-            if (col, row) in self.__live_cells:
-                self.__live_cells.remove((col,row))
-        self.__universe[col][row].switch_state(self.__click_action)
-        print(self.__live_cells)
+        if not self.__is_active:
+            col = y//20
+            row = x//20
+            if self.__click_action == CellState.LIVE:
+                self.__live_cells.add((col, row))
+            else:
+                if (col, row) in self.__live_cells:
+                    self.__live_cells.remove((col,row))
+            self.__universe[col][row].switch_state(self.__click_action)

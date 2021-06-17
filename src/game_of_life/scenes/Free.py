@@ -55,6 +55,15 @@ class Free(SceneInterface):
         self.__live_button.set_is_pressed(True)
         self.__click_action = CellState.LIVE
 
+        self.__reset_button = Button(
+            650,
+            40,
+            'Reset',
+            self.__main_batch,
+            self.__button_group,
+            self.__text_group
+        )
+
         self.__universe = self.__generate_universe()
         self.__live_cells = set()
 
@@ -75,25 +84,34 @@ class Free(SceneInterface):
             self.__is_active = False
             self.__play_button.set_is_pressed(False)
         
-        elif self.__live_button.press_in_bounds(x, y):
-            self.__live_button.set_is_pressed(True)
-            self.__click_action = CellState.LIVE
-            self.__dead_button.set_is_pressed(False)
-        elif self.__dead_button.press_in_bounds(x, y):
-            self.__dead_button.set_is_pressed(True)
-            self.__click_action = CellState.DEAD
-            self.__live_button.set_is_pressed(False)
+        if not self.__is_active:
+            if self.__live_button.press_in_bounds(x, y):
+                self.__live_button.set_is_pressed(True)
+                self.__click_action = CellState.LIVE
+                self.__dead_button.set_is_pressed(False)
+            elif self.__dead_button.press_in_bounds(x, y):
+                self.__dead_button.set_is_pressed(True)
+                self.__click_action = CellState.DEAD
+                self.__live_button.set_is_pressed(False)
 
-        elif x <= 639:
-            self.__click_cell(x, y)
+            elif self.__reset_button.press_in_bounds(x, y):
+                self.__reset_button.set_is_pressed(True)
+
+            elif x <= 639:
+                self.__click_cell(x, y)
 
     def mouse_release(self, x: int, y: int) -> None:
         """"""
-        pass
+        if self.__reset_button.get_is_pressed():
+            self.__reset_button.set_is_pressed(False)
+            self.__universe = self.__generate_universe()
+            self.__live_cells = set()
+
 
     def mouse_drag(self, x: int, y: int) -> None:
-        if 0 <= x <= 639 and 0 <= y <= 639:
-            self.__click_cell(x, y)
+        if not self.__is_active:
+            if 0 <= x <= 639 and 0 <= y <= 639:
+                self.__click_cell(x, y)
 
     def draw(self) -> None:
         """Drawing the Scene"""
@@ -143,15 +161,14 @@ class Free(SceneInterface):
                     self.__live_cells.add(coord)
 
     def __click_cell(self, x: int, y: int) -> None:
-        if not self.__is_active:
-            col = y//20
-            row = x//20
-            if self.__click_action == CellState.LIVE:
-                self.__live_cells.add((col, row))
-            else:
-                if (col, row) in self.__live_cells:
-                    self.__live_cells.remove((col,row))
-            self.__universe[col][row].switch_state(self.__click_action)
+        col = y//20
+        row = x//20
+        if self.__click_action == CellState.LIVE:
+            self.__live_cells.add((col, row))
+        else:
+            if (col, row) in self.__live_cells:
+                self.__live_cells.remove((col,row))
+        self.__universe[col][row].switch_state(self.__click_action)
     
     def __generate_universe(self) -> list[tuple[Cell]]:
         """"""

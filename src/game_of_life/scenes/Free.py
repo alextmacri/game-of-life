@@ -55,7 +55,7 @@ class Free(SceneInterface):
         self.__live_button.set_is_pressed(True)
         self.__click_action = CellState.LIVE
 
-        self.__universe = self.__generate_universe
+        self.__universe = self.__generate_universe()
         self.__live_cells = set()
 
         pyglet.clock.schedule_interval(self.__update_cells, .4)

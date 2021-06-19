@@ -6,7 +6,7 @@
 
 ## TEMPLATE (don't change, just copy and update)
 
-### Log for 2021-06-15
+### Log for 2021-06-16
 
 > **Goals for today:** Make the button UI element, and finish a basic version of the main menu and free play mode (sadly, target mode just isn't a practical goal anymore for my deadline)
 

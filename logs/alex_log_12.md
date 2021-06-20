@@ -8,7 +8,7 @@
 
 ### Log for 2021-06-17
 
-> **Goals for today:** Add the pause panel, finish the in-code documentation, clean up the logs and readme, add the menu title, 
+> **Goals for today:** Add the pause panel, finish the in-code documentation, clean up the logs and readme, add the menu title, and do any other bug fixes if I run into any
 
 > **Accomplished:** Small fixes of previously unknown bugs, and added some more buttons/features (forward and reset), and automtic stopping. Also, you can't click any button except for stop when you are actively playing. I got busy with the math exam and other assignments before I could move on to any of the actual things I wanted to do today
 

@@ -3,6 +3,7 @@ from game_of_life.SceneInterface import SceneInterface
 from typing import Callable
 from game_of_life.ModeState import ModeState
 from game_of_life.ui.Button import Button
+from game_of_life.ui.Panel import Panel
 from game_of_life.CellState import CellState
 from game_of_life.Cell import Cell
 
@@ -12,14 +13,24 @@ class Free(SceneInterface):
         self.__switch_mode_cb = switch_mode_cb
 
         self.__main_batch = pyglet.graphics.Batch()
+        self.__panel_batch = pyglet.graphics.Batch()
         self.__cell_group = pyglet.graphics.OrderedGroup(1)
         self.__backdrop_group = pyglet.graphics.OrderedGroup(2)
         self.__button_group = pyglet.graphics.OrderedGroup(3)
         self.__text_group = pyglet.graphics.OrderedGroup(4)
 
-        self.__forward_button = Button(
+        self.__pause_button = Button(
             650,
             550,
+            'Pause Game',
+            self.__main_batch,
+            self.__button_group,
+            self.__text_group
+        )
+        
+        self.__forward_button = Button(
+            650,
+            460,
             'Forward',
             self.__main_batch,
             self.__button_group,
@@ -28,7 +39,7 @@ class Free(SceneInterface):
 
         self.__play_button = Button(
             650,
-            430,
+            370,
             'Play',
             self.__main_batch,
             self.__button_group,
@@ -36,7 +47,7 @@ class Free(SceneInterface):
         )
         self.__stop_button = Button(
             650,
-            340,
+            280,
             'Stop',
             self.__main_batch,
             self.__button_group,
@@ -47,7 +58,7 @@ class Free(SceneInterface):
 
         self.__live_button = Button(
             650,
-            220,
+            190,
             'Live',
             self.__main_batch,
             self.__button_group,
@@ -55,7 +66,7 @@ class Free(SceneInterface):
         )
         self.__dead_button = Button(
             650,
-            130,
+            100,
             'Dead',
             self.__main_batch,
             self.__button_group,
@@ -73,6 +84,16 @@ class Free(SceneInterface):
             self.__text_group
         )
 
+        self.__pause_panel = Panel(
+            210,
+            170,
+            'Paused',
+            self.__panel_batch,
+            self.__backdrop_group,
+            self.__button_group,
+            self.__text_group
+        )
+
         self.__universe = self.__generate_universe()
         self.__prev_universe_states = self.__generate_universe_states()
         self.__live_cells = set()
@@ -81,37 +102,51 @@ class Free(SceneInterface):
     
     def mouse_press(self, x: int, y: int) -> None:
         """Accounts for the event of a mouse press"""
-        if self.__play_button.press_in_bounds(x, y):
-            self.__play_button.set_is_pressed(True)
-            self.__is_active = True
-            self.__stop_button.set_is_pressed(False)
-        elif self.__stop_button.press_in_bounds(x, y):
-            self.__stop_button.set_is_pressed(True)
-            self.__is_active = False
-            self.__play_button.set_is_pressed(False)
         
-        if not self.__is_active:
-            if self.__live_button.press_in_bounds(x, y):
-                self.__live_button.set_is_pressed(True)
-                self.__click_action = CellState.LIVE
-                self.__dead_button.set_is_pressed(False)
-            elif self.__dead_button.press_in_bounds(x, y):
-                self.__dead_button.set_is_pressed(True)
-                self.__click_action = CellState.DEAD
-                self.__live_button.set_is_pressed(False)
+        if self.__pause_panel.get_is_showing():
+            if self.__pause_panel.continue_button.press_in_bounds(x, y):
+                self.__pause_panel.set_is_showing(False)
+            elif self.__pause_panel.exit_button.press_in_bounds(x, y):
+                self.__reset_window()
+                self.__switch_mode_cb(ModeState.MENU)
+        else:
+            if self.__pause_button.press_in_bounds(x, y):
+                self.__pause_button.set_is_pressed(True)
+            elif self.__play_button.press_in_bounds(x, y):
+                self.__play_button.set_is_pressed(True)
+                self.__is_active = True
+                self.__stop_button.set_is_pressed(False)
+            elif self.__stop_button.press_in_bounds(x, y):
+                self.__stop_button.set_is_pressed(True)
+                self.__is_active = False
+                self.__play_button.set_is_pressed(False)
+        
+            if not self.__is_active:
+                if self.__forward_button.press_in_bounds(x, y):
+                    self.__forward_button.set_is_pressed(True)
 
-            elif self.__forward_button.press_in_bounds(x, y):
-                self.__forward_button.set_is_pressed(True)
+                elif self.__live_button.press_in_bounds(x, y):
+                    self.__live_button.set_is_pressed(True)
+                    self.__click_action = CellState.LIVE
+                    self.__dead_button.set_is_pressed(False)
+                elif self.__dead_button.press_in_bounds(x, y):
+                    self.__dead_button.set_is_pressed(True)
+                    self.__click_action = CellState.DEAD
+                    self.__live_button.set_is_pressed(False)
 
-            elif self.__reset_button.press_in_bounds(x, y):
-                self.__reset_button.set_is_pressed(True)
+                elif self.__reset_button.press_in_bounds(x, y):
+                    self.__reset_button.set_is_pressed(True)
 
-            elif x <= 639:
-                self.__click_cell(x, y)
+                elif x <= 639:
+                    self.__click_cell(x, y)
 
     def mouse_release(self, x: int, y: int) -> None:
         """"""
-        if self.__forward_button.get_is_pressed():
+        if self.__pause_button.get_is_pressed():
+            self.__pause_button.set_is_pressed(False)
+            self.__pause_panel.set_is_showing(True)
+
+        elif self.__forward_button.get_is_pressed():
             self.__forward_button.set_is_pressed(False)
             self.__update_cells()
 
@@ -122,16 +157,18 @@ class Free(SceneInterface):
 
 
     def mouse_drag(self, x: int, y: int) -> None:
-        if not self.__is_active:
+        if not self.__is_active and not self.__pause_panel.get_is_showing():
             if 0 <= x <= 639 and 0 <= y <= 639:
                 self.__click_cell(x, y)
 
     def draw(self) -> None:
         """Drawing the Scene"""
         self.__main_batch.draw()
+        if self.__pause_panel.get_is_showing():
+            self.__panel_batch.draw()
 
     def __update_cells_interval_call(self, dt: float) -> None:
-        if self.__is_active:
+        if self.__is_active and not self.__pause_panel.get_is_showing():
             self.__update_cells()
 
     def __update_cells(self) -> None:
@@ -204,3 +241,14 @@ class Free(SceneInterface):
 
     def __generate_universe_states(self) -> list[tuple[CellState]]:
         return [[cell.state for cell in row] for row in self.__universe]
+
+    def __reset_window(self) -> None:
+        self.__play_button.set_is_pressed(False)
+        self.__stop_button.set_is_pressed(True)
+        self.__is_active = False
+        self.__live_button.set_is_pressed(True)
+        self.__dead_button.set_is_pressed(False)
+        self.__pause_panel.set_is_showing(False)
+        self.__click_action = CellState.LIVE
+        self.__universe = self.__generate_universe()
+        self.__live_cells = set()

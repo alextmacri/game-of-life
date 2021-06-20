@@ -16,6 +16,6 @@
 
 > **Problems/bugs noted:** -
 
-> **Other notes:** I forgot to do these for the past couple days. Today and yesterday I worked on essentially the same stuff, with more of a focus on the free play mode than the UML yesterday
+> **Other notes:** I forgot to do these for the past couple days. Today and yesterday I worked on essentially the same stuff, with more of a focus on the free play mode than the UML yesterday, so this can almost act as a log for both days
 
 ## TEMPLATE ENDS HERE. MEETINGS START HERE.

@@ -10,7 +10,7 @@
 
 > **Goals for today:** Revise/finish scene functionality and cellular automata logic, and make progress on free play
 
-> **Accomplished:** Finally, fully finished the scene and mode switching, and got further in implementing the free play mode (moved universe)
+> **Accomplished:** Finally, fully finished the scene and mode switching, and got further in implementing the free play mode
 
 > **Plans for next day:** Finish the free play, menu, and target modes (which includes elements like the buttons and target system)
 

@@ -8,7 +8,7 @@
 
 ### Log for 2021-06-17
 
-> **Goals for today:** Add the pause panel, finish the in-code documentation, clean up the logs and readme, add the menu title, and do any other bug fixes if I run into any
+> **Goals for today:** Add the pause panel, finish the in-code documentation, clean up the logs and readme, add the menu title, and do any other bug fixes if I run into any (I've given up on the bgm and sfx being done today)
 
 > **Accomplished:** Small fixes of previously unknown bugs, and added some more buttons/features (forward and reset), and automtic stopping. Also, you can't click any button except for stop when you are actively playing. I got busy with the math exam and other assignments before I could move on to any of the actual things I wanted to do today
 
@@ -16,6 +16,6 @@
 
 > **Problems/bugs noted:** - (as you can tell by now, I don't like ending off nights with known bugs lingering)
 
-> **Other notes:** I'll be fine if I don't completely get all of those things done, I definitely want to
+> **Other notes:** I'll be fine if I don't completely get all of those things done, but I really need to do those documentation things the most
 
 ## TEMPLATE ENDS HERE. MEETINGS START HERE.

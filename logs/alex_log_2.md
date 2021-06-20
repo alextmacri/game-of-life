@@ -12,7 +12,7 @@
 
 > **Accomplished:** Finished Gantt and continued with UML
 
-> **Plans for next day:** Make the rest of the UML diagrams and tart process on recreating the original Game of Life in pyglet
+> **Plans for next day:** Make the rest of the UML diagrams and start process on recreating the original Game of Life in pyglet
 
 > **Problems/bugs noted:** -
 

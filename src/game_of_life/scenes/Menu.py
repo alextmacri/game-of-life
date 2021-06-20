@@ -9,13 +9,23 @@ class Menu(SceneInterface):
     def __init__(self, switch_scene_cb: Callable[[str], None], switch_mode_cb: Callable[[ModeState], None]) -> None:
         self.__switch_scene_cb = switch_scene_cb
         self.__switch_mode_cb = switch_mode_cb
-        self.__is_active = False
 
         self.__main_batch = pyglet.graphics.Batch()
-        self.__cell_group = pyglet.graphics.OrderedGroup(1)
-        self.__backdrop_group = pyglet.graphics.OrderedGroup(2)
-        self.__button_group = pyglet.graphics.OrderedGroup(3)
-        self.__text_group = pyglet.graphics.OrderedGroup(4)
+        self.__button_group = pyglet.graphics.OrderedGroup(1)
+        self.__text_group = pyglet.graphics.OrderedGroup(2)
+
+        self.__title_text = pyglet.text.Label(
+            "The Game of Life: The Game",
+            font_name='Back to 1982',
+            font_size=28,
+            color=(0, 0, 0, 255),
+            x=430,
+            y=480,
+            anchor_x='center',
+            anchor_y='center',
+            batch=self.__main_batch,
+            group=self.__text_group
+        )
 
         self.__free_button = Button(
             330,
@@ -25,10 +35,6 @@ class Menu(SceneInterface):
             self.__button_group,
             self.__text_group
         )
-
-    def set_is_active(self, is_active: bool) -> None:
-        """"""
-        self.__is_active = is_active
     
     def mouse_press(self, x: int, y: int) -> None:
         """Accounts for the event of a mouse press"""

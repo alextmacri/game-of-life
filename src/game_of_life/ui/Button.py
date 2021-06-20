@@ -5,7 +5,6 @@ class Button:
     """"""
 
     def __init__(self, x_cor: int, y_cor: int, text: str, batch: pyglet.graphics.Batch, button_group: pyglet.graphics.OrderedGroup, text_group: pyglet.graphics.OrderedGroup) -> None:
-        self.is_active = True
         self.__is_pressed = False
 
         width = 200
